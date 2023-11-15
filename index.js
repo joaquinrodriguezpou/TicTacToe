@@ -5,19 +5,14 @@ const gameController = (() => {
     const winnerScreen = document.getElementById('winner');
     const restartBtn = document.getElementById('Restart');
     
-    let user;
-    let computer;
-    let winner;
-    let board;
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let user = undefined;
+    let computer = undefined;
+    let winner = null;
     let recomendedGameComp;
     let recomendedGameUser;
 
     const initGame = () => {
-        user = undefined;
-        computer = undefined;
-        winner = null;
-        board = ["", "", "", "", "", "", "", "", ""];
-
         buttons.addEventListener("click", handleButtonClick);
         gameBoard.addEventListener("click", handleCellClick);
         restartBtn.addEventListener('click', resetGame);
@@ -87,7 +82,7 @@ const gameController = (() => {
         };
         winnerContainer.style.display = 'none';
         winnerScreen.textContent = "";
-};
+    };
 
 
     const showWinnerScreen = () => {
