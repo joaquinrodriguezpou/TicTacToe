@@ -18,3 +18,8 @@ const handleButtonClick = (event) => {
         computer = getComputerValue();
     }
 };
+
+const executeGame = (cel, player) => {
+    gameBoard.children[cel].classList.add(player === 'x' ? 'ximg' : 'oimg');
+    board[cel] = player;
+};
