@@ -10,3 +10,11 @@ let winner;
 let board;
 let recomendedGameComp;
 let recomendedGameUser;
+
+const handleButtonClick = (event) => {
+    if (!user) {
+        event.target.classList.add('selected-value');
+        user = event.target.id;
+        computer = getComputerValue();
+    }
+};
