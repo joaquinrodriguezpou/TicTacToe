@@ -23,3 +23,121 @@ const executeGame = (cel, player) => {
     gameBoard.children[cel].classList.add(player === 'x' ? 'ximg' : 'oimg');
     board[cel] = player;
 };
+
+checkForWinner = () => {
+    if (board[0] === board[4] && board[0] !== "") {
+        if (board[4] === board[8]) {
+            winner = board[4];
+            showWinnerScreen();
+        } else if (board[8] === "") {
+            if(board[0] === user){
+                recomendedGameUser = 8;
+            }
+            else {
+                recomendedGameComp = 8;
+            }
+        }
+    } 
+
+    if (board[8] === board[4] && board[8] !== "") {
+        if (board[4] === board[0]) {
+            winner = board[4];
+            showWinnerScreen();
+        } else if (board[0] === "") {
+            if(board[8] === user){
+                recomendedGameUser = 0;
+            }
+            else {
+                recomendedGameComp = 0;
+            }
+        }
+    } 
+
+    if (board[2] === board[4] && board[2] !== "") {
+        if (board[4] === board[6]) {
+            winner = board[4];
+            showWinnerScreen();
+        } else if (board[6] === "") {
+            if(board[2] === user){
+                recomendedGameUser = 6;
+            }
+            else {
+                recomendedGameComp = 6;
+            }
+        }
+    } 
+
+    if (board[6] === board[4] && board[6] !== "") {
+        if (board[4] === board[2]) {
+            winner = board[4];
+            showWinnerScreen();
+        } else if (board[2] === "") {
+            if(board[6] === user){
+                recomendedGameUser = 2;
+            }
+            else {
+                recomendedGameComp = 2;
+            }
+        }
+    } 
+
+    if (board.every(cell => cell !== "")){
+        winnerContainer.style.display = 'flex';
+        winnerScreen.textContent = "It's a draw";
+    }
+
+    for (let i = 0; i < 8; i += 3) {
+        let smallBoard = [board[i], board[i + 1], board[i + 2]];
+        let posibleWin = smallBoard.some((element, index, array) => {
+            return array.indexOf(element) !== index && element !== "";
+        });
+        if(board[i] !== "" && board[i] === board[i + 1] && board[i + 1] === board[i + 2]){
+            winner = board[i];
+            return showWinnerScreen();
+            
+        }
+        else if(posibleWin && smallBoard.some(element => element === "")){
+            if(board[i] === user){
+                return recomendedGameUser = smallBoard.findIndex(element => element === "") + i;
+            }
+            else {
+                return recomendedGameComp = smallBoard.findIndex(element => element === "") + i;
+            }
+        }
+    }
+
+    for (let i = 0; i < 3; i++) {
+        let smallBoard = [board[i], board[i + 3], board[i + 6]];
+        let posibleWin = smallBoard.some((element, index, array) => {
+            return array.indexOf(element) !== index && element !== "";
+        });
+        let value = smallBoard[smallBoard.findIndex(element => element !== "")]
+        let emptyCel = smallBoard.findIndex(element => element === "");
+        if(board[i] !== "" && board[i] === board[i + 3] && board[i + 3] === board[i + 6]){
+            winner = board[i];
+            return showWinnerScreen();
+        }
+        else if(posibleWin && emptyCel !== -1){
+            if(value === user){
+                if(emptyCel === 0)
+                    return recomendedGameUser = i;
+                else if(i === 0){
+                    return recomendedGameUser = emptyCel * 3;
+                }
+                else {
+                    return recomendedGameUser = (emptyCel * 3) + i;
+                }
+            }
+            else {
+                if(emptyCel === 0)
+                    return recomendedGameComp = i;
+                else if(i === 0){
+                    return recomendedGameComp = emptyCel * 3;
+                }
+                else {
+                    return recomendedGameComp = (emptyCel * 3) + i;
+                }
+            }
+        }
+    }
+};
